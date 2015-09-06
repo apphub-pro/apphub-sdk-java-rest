@@ -24,7 +24,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>AppHub REST Java SDK</name>
+    <name>AppHub REST SDK for Java</name>
     <description>Contains Java classes for RESTful Web Services</description>
     <url>https://www.apphub.pro/sdk/java/rest</url>
     <scm>
