@@ -1,2 +1,2 @@
 # apphub-sdk-java-rest
-AppHub REST Java SDK
+AppHub REST SDK for Java
