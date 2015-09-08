@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import apphub.util.cbor.CborUtil;
 
@@ -33,36 +33,32 @@ import java.util.List;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/secret")
-public interface ISecretService {
+@Path("/v1/token")
+public interface ITokenService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Secret get(@HeaderParam("token") String token,
-                      @HeaderParam("environment") String environment,
-                      @HeaderParam("id") String id);
+    public Token get(@HeaderParam("token") String token,
+                     @HeaderParam("id") String id);
 
     @GET
-    @Path("/secret")
+    @Path("/token")
     @Produces(MediaType.TEXT_PLAIN)
-    public String secret(@HeaderParam("token") String token,
-                         @HeaderParam("environment") String environment,
-                         @HeaderParam("id") String id);
+    public String token(@HeaderParam("token") String token,
+                        @HeaderParam("id") String id);
 
     @GET
     @Path("/list")
     @Produces(CborUtil.APPLICATION_CBOR)
-    public List<Secret> list(@HeaderParam("token") String token,
-                             @HeaderParam("environment") String environment);
+    public List<Token> list(@HeaderParam("token") String token);
 
     @POST
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Secret post(@HeaderParam("token") String token,
-                       Secret secret);
+    public Token post(@HeaderParam("token") String token,
+                      Token tokenInfo);
 
     @DELETE
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Secret delete(@HeaderParam("token") String token,
-                         @HeaderParam("environment") String environment,
-                         @HeaderParam("id") String id);
+    public Token delete(@HeaderParam("token") String token,
+                        @HeaderParam("id") String id);
 }

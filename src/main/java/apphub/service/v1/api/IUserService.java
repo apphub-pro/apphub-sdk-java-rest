@@ -15,12 +15,11 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import apphub.util.cbor.CborUtil;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -32,31 +31,21 @@ import javax.ws.rs.Produces;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/build")
-public interface IBuildService {
+@Path("/v1/user")
+public interface IUserService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Build get(@HeaderParam("token") String token,
-                     @HeaderParam("application") String application,
-                     @HeaderParam("version") String version,
-                     @HeaderParam("environment") String environment);
+    public User get(@HeaderParam("token") String token);
 
     @POST
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Build post(@HeaderParam("token") String token,
-                      Build build);
+    public User post(@HeaderParam("password") String password,
+                     User user);
 
     @PUT
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Build put(@HeaderParam("token") String token,
-                     Build build);
-
-    @DELETE
-    @Produces(CborUtil.APPLICATION_CBOR)
-    public Build delete(@HeaderParam("token") String token,
-                        @HeaderParam("application") String application,
-                        @HeaderParam("version") String version,
-                        @HeaderParam("environment") String environment);
+    public User put(@HeaderParam("token") String token,
+                    User user);
 }

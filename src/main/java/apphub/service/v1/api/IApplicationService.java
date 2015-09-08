@@ -15,12 +15,11 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import apphub.util.cbor.CborUtil;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -33,35 +32,27 @@ import java.util.List;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/environment/user")
-public interface IEnvironmentUserService {
+@Path("/v1/application")
+public interface IApplicationService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
-    public EnvironmentUser get(@HeaderParam("token") String token,
-                               @HeaderParam("environment") String environment,
-                               @HeaderParam("user") String user);
+    public Application get(@HeaderParam("token") String token,
+                           @HeaderParam("id") String id);
 
     @GET
     @Path("/list")
     @Produces(CborUtil.APPLICATION_CBOR)
-    public List<EnvironmentUser> list(@HeaderParam("token") String token,
-                                      @HeaderParam("environment") String environment);
+    public List<Application> list(@HeaderParam("token") String token);
 
     @POST
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public EnvironmentUser post(@HeaderParam("token") String token,
-                                EnvironmentUser environmentUser);
+    public Application post(@HeaderParam("token") String token,
+                            Application application);
 
     @PUT
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public EnvironmentUser put(@HeaderParam("token") String token,
-                               EnvironmentUser environmentUser);
-
-    @DELETE
-    @Produces(CborUtil.APPLICATION_CBOR)
-    public EnvironmentUser delete(@HeaderParam("token") String token,
-                                  @HeaderParam("environment") String environment,
-                                  @HeaderParam("user") String user);
+    public Application put(@HeaderParam("token") String token,
+                           Application application);
 }

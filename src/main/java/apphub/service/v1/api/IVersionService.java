@@ -15,51 +15,39 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import apphub.util.cbor.CborUtil;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 /**
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/key")
-public interface IKeyService {
+@Path("/v1/version")
+public interface IVersionService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Key get(@HeaderParam("token") String token,
-                   @HeaderParam("id") String id);
-
-    @GET
-    @Path("/key")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String key(@HeaderParam("token") String token,
-                      @HeaderParam("id") String id);
-
-    @GET
-    @Path("/list")
-    @Produces(CborUtil.APPLICATION_CBOR)
-    public List<Key> list(@HeaderParam("token") String token);
+    public Version get(@HeaderParam("token") String token,
+                       @HeaderParam("application") String application,
+                       @HeaderParam("id") String id);
 
     @POST
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Key post(@HeaderParam("token") String token,
-                    @HeaderParam("key") String key,
-                    Key keyInfo);
+    public Version post(@HeaderParam("token") String token,
+                        Version version);
 
-    @DELETE
+    @PUT
+    @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Key delete(@HeaderParam("token") String token,
-                      @HeaderParam("id") String id);
+    public Version put(@HeaderParam("token") String token,
+                       Version version);
 }

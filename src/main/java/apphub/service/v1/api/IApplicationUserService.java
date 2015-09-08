@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import apphub.util.cbor.CborUtil;
 
@@ -26,28 +26,35 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import java.util.List;
 
 /**
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/version")
-public interface IVersionService {
+@Path("/v1/application/user")
+public interface IApplicationUserService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Version get(@HeaderParam("token") String token,
-                       @HeaderParam("application") String application,
-                       @HeaderParam("id") String id);
+    public ApplicationUser get(@HeaderParam("token") String token,
+                               @HeaderParam("application") String application,
+                               @HeaderParam("user") String user);
+
+    @GET
+    @Path("/list")
+    @Produces(CborUtil.APPLICATION_CBOR)
+    public List<ApplicationUser> list(@HeaderParam("token") String token,
+                                      @HeaderParam("application") String application);
 
     @POST
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Version post(@HeaderParam("token") String token,
-                        Version version);
+    public ApplicationUser post(@HeaderParam("token") String token,
+                                ApplicationUser applicationUser);
 
     @PUT
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Version put(@HeaderParam("token") String token,
-                       Version version);
+    public ApplicationUser put(@HeaderParam("token") String token,
+                               ApplicationUser applicationUser);
 }

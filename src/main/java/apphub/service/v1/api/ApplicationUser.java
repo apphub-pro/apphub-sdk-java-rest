@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import apphub.util.cbor.CborUtil;
 import apphub.util.json.JsonUtil;
@@ -29,38 +29,32 @@ import java.sql.Timestamp;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public class Build implements Serializable {
+public class ApplicationUser implements Serializable {
     private static final long serialVersionUID = 1;
 
     public final String application;
-    public final String version;
-    public final String environment;
+    public final String user;
     public final Timestamp createTime;
     public final String createUser;
     public Timestamp updateTime;
     public String updateUser;
-    public final String sourceEnvironment;
-    public String comments;
+    public Boolean admin;
 
     @JsonCreator
-    public Build(@JsonProperty("application") String application,
-                 @JsonProperty("version") String version,
-                 @JsonProperty("environment") String environment,
-                 @JsonProperty("createTime") Timestamp createTime,
-                 @JsonProperty("createUser") String createUser,
-                 @JsonProperty("updateTime") Timestamp updateTime,
-                 @JsonProperty("updateUser") String updateUser,
-                 @JsonProperty("sourceEnvironment") String sourceEnvironment,
-                 @JsonProperty("comments") String comments) {
+    public ApplicationUser(@JsonProperty("application") String application,
+                           @JsonProperty("user") String user,
+                           @JsonProperty("createTime") Timestamp createTime,
+                           @JsonProperty("createUser") String createUser,
+                           @JsonProperty("updateTime") Timestamp updateTime,
+                           @JsonProperty("updateUser") String updateUser,
+                           @JsonProperty("admin") Boolean admin) {
         this.application = application;
-        this.version = version;
-        this.environment = environment;
+        this.user = user;
         this.createTime = createTime;
         this.createUser = createUser;
         this.updateTime = updateTime;
         this.updateUser = updateUser;
-        this.sourceEnvironment = sourceEnvironment;
-        this.comments = comments;
+        this.admin = admin;
     }
 
     public byte[] toBytes() {
@@ -72,11 +66,11 @@ public class Build implements Serializable {
         return JsonUtil.toString(this);
     }
 
-    public static Build valueOf(byte[] data) {
-        return CborUtil.fromBytes(data, Build.class);
+    public static ApplicationUser valueOf(byte[] data) {
+        return CborUtil.fromBytes(data, ApplicationUser.class);
     }
 
-    public static Build valueOf(String content) {
-        return JsonUtil.fromString(content, Build.class);
+    public static ApplicationUser valueOf(String content) {
+        return JsonUtil.fromString(content, ApplicationUser.class);
     }
 }

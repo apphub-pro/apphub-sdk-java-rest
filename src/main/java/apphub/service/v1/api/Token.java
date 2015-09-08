@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import apphub.util.cbor.CborUtil;
 import apphub.util.json.JsonUtil;
@@ -29,7 +29,7 @@ import java.sql.Timestamp;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public class Key implements Serializable {
+public class Token implements Serializable {
     private static final long serialVersionUID = 1;
 
     public final String user;
@@ -37,9 +37,9 @@ public class Key implements Serializable {
     public final Timestamp createTime;
 
     @JsonCreator
-    public Key(@JsonProperty("user") String user,
-               @JsonProperty("id") String id,
-               @JsonProperty("createTime") Timestamp createTime) {
+    public Token(@JsonProperty("user") String user,
+                 @JsonProperty("id") String id,
+                 @JsonProperty("createTime") Timestamp createTime) {
         this.user = user;
         this.id = id;
         this.createTime = createTime;
@@ -54,11 +54,11 @@ public class Key implements Serializable {
         return JsonUtil.toString(this);
     }
 
-    public static Key valueOf(byte[] data) {
-        return CborUtil.fromBytes(data, Key.class);
+    public static Token valueOf(byte[] data) {
+        return CborUtil.fromBytes(data, Token.class);
     }
 
-    public static Key valueOf(String content) {
-        return JsonUtil.fromString(content, Key.class);
+    public static Token valueOf(String content) {
+        return JsonUtil.fromString(content, Token.class);
     }
 }

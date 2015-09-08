@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

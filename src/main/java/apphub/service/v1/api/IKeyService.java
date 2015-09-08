@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import apphub.util.cbor.CborUtil;
 
@@ -33,32 +33,33 @@ import java.util.List;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/token")
-public interface ITokenService {
+@Path("/v1/key")
+public interface IKeyService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Token get(@HeaderParam("token") String token,
-                     @HeaderParam("id") String id);
+    public Key get(@HeaderParam("token") String token,
+                   @HeaderParam("id") String id);
 
     @GET
-    @Path("/token")
+    @Path("/key")
     @Produces(MediaType.TEXT_PLAIN)
-    public String token(@HeaderParam("token") String token,
-                        @HeaderParam("id") String id);
+    public String key(@HeaderParam("token") String token,
+                      @HeaderParam("id") String id);
 
     @GET
     @Path("/list")
     @Produces(CborUtil.APPLICATION_CBOR)
-    public List<Token> list(@HeaderParam("token") String token);
+    public List<Key> list(@HeaderParam("token") String token);
 
     @POST
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Token post(@HeaderParam("token") String token,
-                      Token tokenInfo);
+    public Key post(@HeaderParam("token") String token,
+                    @HeaderParam("key") String key,
+                    Key keyInfo);
 
     @DELETE
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Token delete(@HeaderParam("token") String token,
-                        @HeaderParam("id") String id);
+    public Key delete(@HeaderParam("token") String token,
+                      @HeaderParam("id") String id);
 }

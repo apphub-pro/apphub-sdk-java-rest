@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
+import apphub.EnvironmentType;
 import apphub.util.cbor.CborUtil;
 import apphub.util.json.JsonUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -29,7 +30,7 @@ import java.sql.Timestamp;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public class Application implements Serializable {
+public class Environment implements Serializable {
     private static final long serialVersionUID = 1;
 
     public final String id;
@@ -37,6 +38,8 @@ public class Application implements Serializable {
     public final String createUser;
     public Timestamp updateTime;
     public String updateUser;
+    public final EnvironmentType type;
+    public EnvironmentState state;
     public String name;
     public String description;
     public String url;
@@ -45,11 +48,13 @@ public class Application implements Serializable {
     public String picture;
 
     @JsonCreator
-    public Application(@JsonProperty("id") String id,
+    public Environment(@JsonProperty("id") String id,
                        @JsonProperty("createTime") Timestamp createTime,
                        @JsonProperty("createUser") String createUser,
                        @JsonProperty("updateTime") Timestamp updateTime,
                        @JsonProperty("updateUser") String updateUser,
+                       @JsonProperty("type") EnvironmentType type,
+                       @JsonProperty("state") EnvironmentState state,
                        @JsonProperty("name") String name,
                        @JsonProperty("description") String description,
                        @JsonProperty("url") String url,
@@ -61,6 +66,8 @@ public class Application implements Serializable {
         this.createUser = createUser;
         this.updateTime = updateTime;
         this.updateUser = updateUser;
+        this.type = type;
+        this.state = state;
         this.name = name;
         this.description = description;
         this.url = url;
@@ -78,11 +85,11 @@ public class Application implements Serializable {
         return JsonUtil.toString(this);
     }
 
-    public static Application valueOf(byte[] data) {
-        return CborUtil.fromBytes(data, Application.class);
+    public static Environment valueOf(byte[] data) {
+        return CborUtil.fromBytes(data, Environment.class);
     }
 
-    public static Application valueOf(String content) {
-        return JsonUtil.fromString(content, Application.class);
+    public static Environment valueOf(String content) {
+        return JsonUtil.fromString(content, Environment.class);
     }
 }

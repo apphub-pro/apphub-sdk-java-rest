@@ -15,37 +15,28 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
-import apphub.util.cbor.CborUtil;
-
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/user")
-public interface IUserService {
+@Path("/v1/login")
+public interface ILoginService {
     @GET
-    @Produces(CborUtil.APPLICATION_CBOR)
-    public User get(@HeaderParam("token") String token);
-
-    @POST
-    @Consumes(CborUtil.APPLICATION_CBOR)
-    @Produces(CborUtil.APPLICATION_CBOR)
-    public User post(@HeaderParam("password") String password,
-                     User user);
+    @Produces(MediaType.TEXT_PLAIN)
+    public String get(@HeaderParam("user") String user,
+                      @HeaderParam("password") String password);
 
     @PUT
-    @Consumes(CborUtil.APPLICATION_CBOR)
-    @Produces(CborUtil.APPLICATION_CBOR)
-    public User put(@HeaderParam("token") String token,
-                    User user);
+    @Produces(MediaType.TEXT_PLAIN)
+    public String put(@HeaderParam("user") String user,
+                      @HeaderParam("password") String password);
 }

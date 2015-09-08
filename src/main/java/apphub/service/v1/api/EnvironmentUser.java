@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.rest.service.v1.api;
+package apphub.service.v1.api;
 
 import apphub.util.cbor.CborUtil;
 import apphub.util.json.JsonUtil;
@@ -29,20 +29,32 @@ import java.sql.Timestamp;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public class Token implements Serializable {
+public class EnvironmentUser implements Serializable {
     private static final long serialVersionUID = 1;
 
+    public final String environment;
     public final String user;
-    public final String id;
     public final Timestamp createTime;
+    public final String createUser;
+    public Timestamp updateTime;
+    public String updateUser;
+    public Boolean admin;
 
     @JsonCreator
-    public Token(@JsonProperty("user") String user,
-                 @JsonProperty("id") String id,
-                 @JsonProperty("createTime") Timestamp createTime) {
+    public EnvironmentUser(@JsonProperty("environment") String environment,
+                           @JsonProperty("user") String user,
+                           @JsonProperty("createTime") Timestamp createTime,
+                           @JsonProperty("createUser") String createUser,
+                           @JsonProperty("updateTime") Timestamp updateTime,
+                           @JsonProperty("updateUser") String updateUser,
+                           @JsonProperty("admin") Boolean admin) {
+        this.environment = environment;
         this.user = user;
-        this.id = id;
         this.createTime = createTime;
+        this.createUser = createUser;
+        this.updateTime = updateTime;
+        this.updateUser = updateUser;
+        this.admin = admin;
     }
 
     public byte[] toBytes() {
@@ -54,11 +66,11 @@ public class Token implements Serializable {
         return JsonUtil.toString(this);
     }
 
-    public static Token valueOf(byte[] data) {
-        return CborUtil.fromBytes(data, Token.class);
+    public static EnvironmentUser valueOf(byte[] data) {
+        return CborUtil.fromBytes(data, EnvironmentUser.class);
     }
 
-    public static Token valueOf(String content) {
-        return JsonUtil.fromString(content, Token.class);
+    public static EnvironmentUser valueOf(String content) {
+        return JsonUtil.fromString(content, EnvironmentUser.class);
     }
 }
