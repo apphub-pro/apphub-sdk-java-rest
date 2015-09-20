@@ -19,6 +19,7 @@ package apphub.rest;
 
 import apphub.Config;
 import apphub.util.Util;
+import apphub.util.map.MapUtil;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -42,14 +43,13 @@ public final class Service {
         Key<S> key = new Key<>(url, type);
         Holder<S> holder = services.get(key);
         if (holder == null) {
-            holder = new Holder<>(key);
-            services.putIfAbsent(key, holder);
+            holder = MapUtil.putIfAbsent(services, key, new Holder<>(key));
         }
         return holder.getProxy();
     }
 
     static {
-        Thread t = new Thread("apphub-service") {
+        Thread t = new Thread("apphub-rest-service") {
             @Override
             public void run() {
                 while (!Config.get().isShutdown()) {
