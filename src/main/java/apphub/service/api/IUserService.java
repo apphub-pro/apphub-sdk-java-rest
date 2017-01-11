@@ -31,7 +31,7 @@ import javax.ws.rs.Produces;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/user")
+@Path("/user")
 public interface IUserService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)

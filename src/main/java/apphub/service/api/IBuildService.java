@@ -32,7 +32,7 @@ import javax.ws.rs.Produces;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/build")
+@Path("/build")
 public interface IBuildService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)

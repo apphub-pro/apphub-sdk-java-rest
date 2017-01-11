@@ -32,7 +32,7 @@ import java.util.List;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/application")
+@Path("/application")
 public interface IApplicationService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)

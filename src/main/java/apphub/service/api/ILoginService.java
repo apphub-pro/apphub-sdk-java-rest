@@ -28,7 +28,7 @@ import javax.ws.rs.core.MediaType;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/login")
+@Path("/login")
 public interface ILoginService {
     @GET
     @Produces(MediaType.TEXT_PLAIN)

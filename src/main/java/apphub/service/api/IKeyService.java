@@ -33,7 +33,7 @@ import java.util.List;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/key")
+@Path("/key")
 public interface IKeyService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)

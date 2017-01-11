@@ -33,7 +33,7 @@ import java.util.List;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/secret")
+@Path("/secret")
 public interface ISecretService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)

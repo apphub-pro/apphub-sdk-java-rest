@@ -27,7 +27,7 @@ import javax.ws.rs.core.MediaType;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/activation")
+@Path("/activation")
 public interface IActivationService {
     @GET
     @Path("/{code}")

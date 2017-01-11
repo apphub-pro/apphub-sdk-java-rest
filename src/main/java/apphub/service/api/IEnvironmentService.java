@@ -33,7 +33,7 @@ import java.util.List;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/environment")
+@Path("/environment")
 public interface IEnvironmentService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
