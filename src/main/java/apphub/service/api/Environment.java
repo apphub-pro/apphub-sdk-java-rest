@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.EnvironmentType;
 import apphub.util.CborUtil;

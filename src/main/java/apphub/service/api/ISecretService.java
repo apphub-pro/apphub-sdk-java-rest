@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.util.CborUtil;
 
@@ -24,42 +24,45 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/environment")
-public interface IEnvironmentService {
+@Path("/v1/secret")
+public interface ISecretService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Environment get(@HeaderParam("token") String token,
-                           @HeaderParam("id") String id);
+    public Secret get(@HeaderParam("token") String token,
+                      @HeaderParam("environment") String environment,
+                      @HeaderParam("id") String id);
+
+    @GET
+    @Path("/secret")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String secret(@HeaderParam("token") String token,
+                         @HeaderParam("environment") String environment,
+                         @HeaderParam("id") String id);
 
     @GET
     @Path("/list")
     @Produces(CborUtil.APPLICATION_CBOR)
-    public List<Environment> list(@HeaderParam("token") String token);
+    public List<Secret> list(@HeaderParam("token") String token,
+                             @HeaderParam("environment") String environment);
 
     @POST
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Environment post(@HeaderParam("token") String token,
-                            @HeaderParam("environment-secret") String environmentSecret,
-                            Environment environment);
-
-    @PUT
-    @Consumes(CborUtil.APPLICATION_CBOR)
-    @Produces(CborUtil.APPLICATION_CBOR)
-    public Environment put(@HeaderParam("token") String token,
-                           Environment environment);
+    public Secret post(@HeaderParam("token") String token,
+                       Secret secret);
 
     @DELETE
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Environment delete(@HeaderParam("token") String token,
-                              @HeaderParam("id") String id);
+    public Secret delete(@HeaderParam("token") String token,
+                         @HeaderParam("environment") String environment,
+                         @HeaderParam("id") String id);
 }

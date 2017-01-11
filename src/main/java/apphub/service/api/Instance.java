@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.util.CborUtil;
 import apphub.util.JsonUtil;

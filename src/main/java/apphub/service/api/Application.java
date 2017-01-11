@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.util.CborUtil;
 import apphub.util.JsonUtil;
@@ -29,35 +29,44 @@ import java.sql.Timestamp;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public class Version implements Serializable {
+public class Application implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public final String application;
     public final String id;
     public final Timestamp createTime;
     public final String createUser;
     public Timestamp updateTime;
     public String updateUser;
-    public String notes;
+    public String name;
+    public String description;
     public String url;
+    public String company;
+    public String location;
+    public String picture;
 
     @JsonCreator
-    public Version(@JsonProperty("application") String application,
-                   @JsonProperty("id") String id,
-                   @JsonProperty("createTime") Timestamp createTime,
-                   @JsonProperty("createUser") String createUser,
-                   @JsonProperty("updateTime") Timestamp updateTime,
-                   @JsonProperty("updateUser") String updateUser,
-                   @JsonProperty("notes") String notes,
-                   @JsonProperty("url") String url) {
-        this.application = application;
+    public Application(@JsonProperty("id") String id,
+                       @JsonProperty("createTime") Timestamp createTime,
+                       @JsonProperty("createUser") String createUser,
+                       @JsonProperty("updateTime") Timestamp updateTime,
+                       @JsonProperty("updateUser") String updateUser,
+                       @JsonProperty("name") String name,
+                       @JsonProperty("description") String description,
+                       @JsonProperty("url") String url,
+                       @JsonProperty("company") String company,
+                       @JsonProperty("location") String location,
+                       @JsonProperty("picture") String picture) {
         this.id = id;
         this.createTime = createTime;
         this.createUser = createUser;
         this.updateTime = updateTime;
         this.updateUser = updateUser;
-        this.notes = notes;
+        this.name = name;
+        this.description = description;
         this.url = url;
+        this.company = company;
+        this.location = location;
+        this.picture = picture;
     }
 
     public byte[] toBytes() {
@@ -69,11 +78,11 @@ public class Version implements Serializable {
         return JsonUtil.toString(this);
     }
 
-    public static Version valueOf(byte[] data) {
-        return CborUtil.fromBytes(data, Version.class);
+    public static Application valueOf(byte[] data) {
+        return CborUtil.fromBytes(data, Application.class);
     }
 
-    public static Version valueOf(String content) {
-        return JsonUtil.fromString(content, Version.class);
+    public static Application valueOf(String content) {
+        return JsonUtil.fromString(content, Application.class);
     }
 }

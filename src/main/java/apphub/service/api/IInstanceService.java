@@ -15,11 +15,12 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.util.CborUtil;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -32,27 +33,35 @@ import java.util.List;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/application")
-public interface IApplicationService {
+@Path("/v1/instance")
+public interface IInstanceService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Application get(@HeaderParam("token") String token,
-                           @HeaderParam("id") String id);
+    public Instance get(@HeaderParam("token") String token,
+                        @HeaderParam("environment") String environment,
+                        @HeaderParam("application") String application);
 
     @GET
     @Path("/list")
     @Produces(CborUtil.APPLICATION_CBOR)
-    public List<Application> list(@HeaderParam("token") String token);
+    public List<Instance> list(@HeaderParam("token") String token,
+                               @HeaderParam("environment") String environment);
 
     @POST
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Application post(@HeaderParam("token") String token,
-                            Application application);
+    public Instance post(@HeaderParam("token") String token,
+                         Instance instance);
 
     @PUT
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public Application put(@HeaderParam("token") String token,
-                           Application application);
+    public Instance put(@HeaderParam("token") String token,
+                        Instance instance);
+
+    @DELETE
+    @Produces(CborUtil.APPLICATION_CBOR)
+    public Instance delete(@HeaderParam("token") String token,
+                           @HeaderParam("environment") String environment,
+                           @HeaderParam("application") String application);
 }

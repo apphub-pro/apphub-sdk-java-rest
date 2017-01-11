@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.util.CborUtil;
 
@@ -24,44 +24,42 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/environment/user")
-public interface IEnvironmentUserService {
+@Path("/v1/key")
+public interface IKeyService {
     @GET
     @Produces(CborUtil.APPLICATION_CBOR)
-    public EnvironmentUser get(@HeaderParam("token") String token,
-                               @HeaderParam("environment") String environment,
-                               @HeaderParam("user") String user);
+    public Key get(@HeaderParam("token") String token,
+                   @HeaderParam("id") String id);
+
+    @GET
+    @Path("/key")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String key(@HeaderParam("token") String token,
+                      @HeaderParam("id") String id);
 
     @GET
     @Path("/list")
     @Produces(CborUtil.APPLICATION_CBOR)
-    public List<EnvironmentUser> list(@HeaderParam("token") String token,
-                                      @HeaderParam("environment") String environment);
+    public List<Key> list(@HeaderParam("token") String token);
 
     @POST
     @Consumes(CborUtil.APPLICATION_CBOR)
     @Produces(CborUtil.APPLICATION_CBOR)
-    public EnvironmentUser post(@HeaderParam("token") String token,
-                                EnvironmentUser environmentUser);
-
-    @PUT
-    @Consumes(CborUtil.APPLICATION_CBOR)
-    @Produces(CborUtil.APPLICATION_CBOR)
-    public EnvironmentUser put(@HeaderParam("token") String token,
-                               EnvironmentUser environmentUser);
+    public Key post(@HeaderParam("token") String token,
+                    @HeaderParam("key") String key,
+                    Key keyInfo);
 
     @DELETE
     @Produces(CborUtil.APPLICATION_CBOR)
-    public EnvironmentUser delete(@HeaderParam("token") String token,
-                                  @HeaderParam("environment") String environment,
-                                  @HeaderParam("user") String user);
+    public Key delete(@HeaderParam("token") String token,
+                      @HeaderParam("id") String id);
 }

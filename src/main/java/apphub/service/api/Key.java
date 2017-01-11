@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.util.CborUtil;
 import apphub.util.JsonUtil;
@@ -29,20 +29,17 @@ import java.sql.Timestamp;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public class Secret implements Serializable {
+public class Key implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public final String environment;
     public final String user;
     public final String id;
     public final Timestamp createTime;
 
     @JsonCreator
-    public Secret(@JsonProperty("environment") String environment,
-                  @JsonProperty("user") String user,
-                  @JsonProperty("id") String id,
-                  @JsonProperty("createTime") Timestamp createTime) {
-        this.environment = environment;
+    public Key(@JsonProperty("user") String user,
+               @JsonProperty("id") String id,
+               @JsonProperty("createTime") Timestamp createTime) {
         this.user = user;
         this.id = id;
         this.createTime = createTime;
@@ -57,11 +54,11 @@ public class Secret implements Serializable {
         return JsonUtil.toString(this);
     }
 
-    public static Secret valueOf(byte[] data) {
-        return CborUtil.fromBytes(data, Secret.class);
+    public static Key valueOf(byte[] data) {
+        return CborUtil.fromBytes(data, Key.class);
     }
 
-    public static Secret valueOf(String content) {
-        return JsonUtil.fromString(content, Secret.class);
+    public static Key valueOf(String content) {
+        return JsonUtil.fromString(content, Key.class);
     }
 }

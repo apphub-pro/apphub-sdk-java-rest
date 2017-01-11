@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.util.CborUtil;
 import apphub.util.JsonUtil;
@@ -29,10 +29,10 @@ import java.sql.Timestamp;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public class EnvironmentUser implements Serializable {
+public class ApplicationUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public final String environment;
+    public final String application;
     public final String user;
     public final Timestamp createTime;
     public final String createUser;
@@ -41,14 +41,14 @@ public class EnvironmentUser implements Serializable {
     public Boolean admin;
 
     @JsonCreator
-    public EnvironmentUser(@JsonProperty("environment") String environment,
+    public ApplicationUser(@JsonProperty("application") String application,
                            @JsonProperty("user") String user,
                            @JsonProperty("createTime") Timestamp createTime,
                            @JsonProperty("createUser") String createUser,
                            @JsonProperty("updateTime") Timestamp updateTime,
                            @JsonProperty("updateUser") String updateUser,
                            @JsonProperty("admin") Boolean admin) {
-        this.environment = environment;
+        this.application = application;
         this.user = user;
         this.createTime = createTime;
         this.createUser = createUser;
@@ -66,11 +66,11 @@ public class EnvironmentUser implements Serializable {
         return JsonUtil.toString(this);
     }
 
-    public static EnvironmentUser valueOf(byte[] data) {
-        return CborUtil.fromBytes(data, EnvironmentUser.class);
+    public static ApplicationUser valueOf(byte[] data) {
+        return CborUtil.fromBytes(data, ApplicationUser.class);
     }
 
-    public static EnvironmentUser valueOf(String content) {
-        return JsonUtil.fromString(content, EnvironmentUser.class);
+    public static ApplicationUser valueOf(String content) {
+        return JsonUtil.fromString(content, ApplicationUser.class);
     }
 }

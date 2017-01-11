@@ -15,28 +15,39 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
+import apphub.util.CborUtil;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 /**
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/login")
-public interface ILoginService {
+@Path("/v1/version")
+public interface IVersionService {
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get(@HeaderParam("user") String user,
-                      @HeaderParam("password") String password);
+    @Produces(CborUtil.APPLICATION_CBOR)
+    public Version get(@HeaderParam("token") String token,
+                       @HeaderParam("application") String application,
+                       @HeaderParam("id") String id);
+
+    @POST
+    @Consumes(CborUtil.APPLICATION_CBOR)
+    @Produces(CborUtil.APPLICATION_CBOR)
+    public Version post(@HeaderParam("token") String token,
+                        Version version);
 
     @PUT
-    @Produces(MediaType.TEXT_PLAIN)
-    public String put(@HeaderParam("user") String user,
-                      @HeaderParam("password") String password);
+    @Consumes(CborUtil.APPLICATION_CBOR)
+    @Produces(CborUtil.APPLICATION_CBOR)
+    public Version put(@HeaderParam("token") String token,
+                       Version version);
 }

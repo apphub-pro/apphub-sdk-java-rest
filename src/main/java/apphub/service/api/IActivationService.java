@@ -15,12 +15,22 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public enum EnvironmentState {
-    CREATING, READY, DELETING
+@Path("/v1/activation")
+public interface IActivationService {
+    @GET
+    @Path("/{code}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String get(@PathParam("code") String code);
 }

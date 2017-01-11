@@ -15,22 +15,37 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
+import apphub.util.CborUtil;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 /**
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-@Path("/v1/activation")
-public interface IActivationService {
+@Path("/v1/user")
+public interface IUserService {
     @GET
-    @Path("/{code}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get(@PathParam("code") String code);
+    @Produces(CborUtil.APPLICATION_CBOR)
+    public User get(@HeaderParam("token") String token);
+
+    @POST
+    @Consumes(CborUtil.APPLICATION_CBOR)
+    @Produces(CborUtil.APPLICATION_CBOR)
+    public User post(@HeaderParam("password") String password,
+                     User user);
+
+    @PUT
+    @Consumes(CborUtil.APPLICATION_CBOR)
+    @Produces(CborUtil.APPLICATION_CBOR)
+    public User put(@HeaderParam("token") String token,
+                    User user);
 }

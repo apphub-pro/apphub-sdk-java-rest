@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.util.CborUtil;
 import apphub.util.JsonUtil;
@@ -29,38 +29,32 @@ import java.sql.Timestamp;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public class User implements Serializable {
+public class EnvironmentUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public final String id;
+    public final String environment;
+    public final String user;
     public final Timestamp createTime;
+    public final String createUser;
     public Timestamp updateTime;
-    public String name;
-    public final String email;
-    public String url;
-    public String company;
-    public String location;
-    public String picture;
+    public String updateUser;
+    public Boolean admin;
 
     @JsonCreator
-    public User(@JsonProperty("id") String id,
-                @JsonProperty("createTime") Timestamp createTime,
-                @JsonProperty("updateTime") Timestamp updateTime,
-                @JsonProperty("name") String name,
-                @JsonProperty("email") String email,
-                @JsonProperty("url") String url,
-                @JsonProperty("company") String company,
-                @JsonProperty("location") String location,
-                @JsonProperty("picture") String picture) {
-        this.id = id;
+    public EnvironmentUser(@JsonProperty("environment") String environment,
+                           @JsonProperty("user") String user,
+                           @JsonProperty("createTime") Timestamp createTime,
+                           @JsonProperty("createUser") String createUser,
+                           @JsonProperty("updateTime") Timestamp updateTime,
+                           @JsonProperty("updateUser") String updateUser,
+                           @JsonProperty("admin") Boolean admin) {
+        this.environment = environment;
+        this.user = user;
         this.createTime = createTime;
+        this.createUser = createUser;
         this.updateTime = updateTime;
-        this.name = name;
-        this.email = email;
-        this.url = url;
-        this.company = company;
-        this.location = location;
-        this.picture = picture;
+        this.updateUser = updateUser;
+        this.admin = admin;
     }
 
     public byte[] toBytes() {
@@ -72,11 +66,11 @@ public class User implements Serializable {
         return JsonUtil.toString(this);
     }
 
-    public static User valueOf(byte[] data) {
-        return CborUtil.fromBytes(data, User.class);
+    public static EnvironmentUser valueOf(byte[] data) {
+        return CborUtil.fromBytes(data, EnvironmentUser.class);
     }
 
-    public static User valueOf(String content) {
-        return JsonUtil.fromString(content, User.class);
+    public static EnvironmentUser valueOf(String content) {
+        return JsonUtil.fromString(content, EnvironmentUser.class);
     }
 }

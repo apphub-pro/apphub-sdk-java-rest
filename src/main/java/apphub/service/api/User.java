@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package apphub.service.v1.api;
+package apphub.service.api;
 
 import apphub.util.CborUtil;
 import apphub.util.JsonUtil;
@@ -29,20 +29,38 @@ import java.sql.Timestamp;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public class Token implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public final String user;
     public final String id;
     public final Timestamp createTime;
+    public Timestamp updateTime;
+    public String name;
+    public final String email;
+    public String url;
+    public String company;
+    public String location;
+    public String picture;
 
     @JsonCreator
-    public Token(@JsonProperty("user") String user,
-                 @JsonProperty("id") String id,
-                 @JsonProperty("createTime") Timestamp createTime) {
-        this.user = user;
+    public User(@JsonProperty("id") String id,
+                @JsonProperty("createTime") Timestamp createTime,
+                @JsonProperty("updateTime") Timestamp updateTime,
+                @JsonProperty("name") String name,
+                @JsonProperty("email") String email,
+                @JsonProperty("url") String url,
+                @JsonProperty("company") String company,
+                @JsonProperty("location") String location,
+                @JsonProperty("picture") String picture) {
         this.id = id;
         this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.name = name;
+        this.email = email;
+        this.url = url;
+        this.company = company;
+        this.location = location;
+        this.picture = picture;
     }
 
     public byte[] toBytes() {
@@ -54,11 +72,11 @@ public class Token implements Serializable {
         return JsonUtil.toString(this);
     }
 
-    public static Token valueOf(byte[] data) {
-        return CborUtil.fromBytes(data, Token.class);
+    public static User valueOf(byte[] data) {
+        return CborUtil.fromBytes(data, User.class);
     }
 
-    public static Token valueOf(String content) {
-        return JsonUtil.fromString(content, Token.class);
+    public static User valueOf(String content) {
+        return JsonUtil.fromString(content, User.class);
     }
 }
