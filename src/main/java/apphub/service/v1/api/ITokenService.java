@@ -17,7 +17,7 @@
 
 package apphub.service.v1.api;
 
-import apphub.util.cbor.CborUtil;
+import apphub.util.CborUtil;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;

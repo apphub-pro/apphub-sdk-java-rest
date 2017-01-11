@@ -18,8 +18,8 @@
 package apphub.service.v1.api;
 
 import apphub.EnvironmentType;
-import apphub.util.cbor.CborUtil;
-import apphub.util.json.JsonUtil;
+import apphub.util.CborUtil;
+import apphub.util.JsonUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

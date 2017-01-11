@@ -1,4 +1,4 @@
-apphub.rest.util.json.JsonBodyReader
-apphub.rest.util.json.JsonBodyWriter
-apphub.rest.util.cbor.CborBodyReader
-apphub.rest.util.cbor.CborBodyWriter
+apphub.rest.util.JsonBodyReader
+apphub.rest.util.JsonBodyWriter
+apphub.rest.util.CborBodyReader
+apphub.rest.util.CborBodyWriter

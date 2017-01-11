@@ -18,8 +18,10 @@
 package apphub.rest;
 
 import apphub.Config;
+import apphub.util.ThreadLock;
+import apphub.util.ThreadUtil;
 import apphub.util.Util;
-import apphub.util.map.MapUtil;
+import apphub.util.MapUtil;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -52,8 +54,8 @@ public final class Service {
         Thread t = new Thread("apphub-rest-service") {
             @Override
             public void run() {
-                while (!Config.get().isShutdown()) {
-                    Util.sleep(60000);
+                while (!ThreadUtil.isShutdown()) {
+                    ThreadUtil.sleep(60000L);
                     Holder[] holders = services.values().toArray(new Holder[services.size()]);
                     long time = System.currentTimeMillis();
                     for (Holder holder : holders) {

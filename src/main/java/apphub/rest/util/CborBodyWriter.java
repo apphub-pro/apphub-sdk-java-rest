@@ -15,18 +15,18 @@
  * limitations under the License.
  */
 
-package apphub.rest.util.json;
+package apphub.rest.util;
 
-import apphub.util.json.JsonUtil;
+import apphub.util.CborUtil;
 
-import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.MessageBodyReader;
+import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
@@ -35,20 +35,23 @@ import java.lang.reflect.Type;
  * @since 1.0
  */
 @Provider
-@Consumes(JsonUtil.APPLICATION_JSON)
-public class JsonBodyReader implements MessageBodyReader<Object> {
-    public static final MediaType APPLICATION_JSON_TYPE = new MediaType("application", "json");
-
-    public JsonBodyReader() {
+@Produces(CborUtil.APPLICATION_CBOR)
+public class CborBodyWriter implements MessageBodyWriter<Object> {
+    public CborBodyWriter() {
     }
 
     @Override
-    public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
-        return mediaType.equals(JsonBodyReader.APPLICATION_JSON_TYPE);
+    public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+        return mediaType.equals(CborBodyReader.APPLICATION_CBOR_TYPE);
     }
 
     @Override
-    public Object readFrom(Class<Object> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
-        return JsonUtil.readBytes(entityStream, type);
+    public long getSize(Object o, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+        return -1;
+    }
+
+    @Override
+    public void writeTo(Object o, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
+        CborUtil.writeBytes(entityStream, o);
     }
 }
