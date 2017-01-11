@@ -30,7 +30,7 @@ import java.sql.Timestamp;
  * @since 1.0
  */
 public class ApplicationUser implements Serializable {
-    private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1L;
 
     public final String application;
     public final String user;
